@@ -15,6 +15,8 @@ var time = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 var primetime;
 var block = $('#block');
 var prime = "";
+var timeReturn = [9, 10, 11, 12, 1, 2, 3, 4, 5]
+var r = 0;
 
 // newcode
 
@@ -43,12 +45,18 @@ function addPastTimeBlock() {
     prime = "PM"
   }
 
-    block.append(`<div id=card${i} class=\"row time-block past\">`);
-    $(`#card${i}`).append(`<div id=hour${i} class=\'col-2 col-md-1 hour text-center py-3\'>`);
-    $(`#hour${i}`).text(primetime + prime);
-    $(`#card${i}`).append(`<textarea class=\'col-8 col-md-10 description\' rows=3 id=textarea${i}>`);
-    $(`#card${i}`).append(`<button class=\'btn saveBtn col-2 col-md-1\' id=Btn${i} aria-label=save>`);
-    $(`#Btn${i}`).append(`'<i class='fas fa-save' aria-hidden='true'>'`);
+  block.append(`
+  <div id=card${i} class="row time-block past">
+    <div id=hour${i} class='col-2 col-md-1 hour text-center py-3'>
+      <span id=tMinus${i}>${primetime}<span>${prime}
+    </div>
+    <textarea class='col-8 col-md-10 description' rows=3 id=textarea${i}>
+    </textarea>
+    <button class='btn saveBtn col-2 col-md-1' id=Btn${i} aria-label=save>
+      <i class='fas fa-save' aria-hidden='true'></i>
+    </button>
+  </div>
+  `)
   }
 
   function addPresentTimeBlock() {
@@ -64,12 +72,18 @@ function addPastTimeBlock() {
       prime = "PM"
     }
 
-    block.append(`<div id=card${i} class=\"row time-block present\">`);
-    $(`#card${i}`).append(`<div id=hour${i} class=\'col-2 col-md-1 hour text-center py-3\'>`);
-    $(`#hour${i}`).text(primetime + prime);
-    $(`#card${i}`).append(`<textarea class=\'col-8 col-md-10 description\' rows=3 id=textarea${i}>`);
-    $(`#card${i}`).append(`<button class=\'btn saveBtn col-2 col-md-1\' id=Btn${i} aria-label=save>`);
-    $(`#Btn${i}`).append(`'<i class='fas fa-save' aria-hidden='true'>'`);
+    block.append(`
+    <div id=card${i} class="row time-block present">
+      <div id=hour${i} class='col-2 col-md-1 hour text-center py-3'>
+        <span id=tMinus${i}>${primetime}<span>${prime}
+      </div>
+      <textarea class='col-8 col-md-10 description' rows=3 id=textarea${i}>
+      </textarea>
+      <button class='btn saveBtn col-2 col-md-1' id=Btn${i} aria-label=save>
+        <i class='fas fa-save' aria-hidden='true'>
+      </button>
+    </div>
+    `)
   }
 
 function addFutureTimeBlock() {
@@ -85,21 +99,33 @@ function addFutureTimeBlock() {
     prime = "PM"
   }
 
-    block.append(`<div id=card${i} class=\"row time-block future\">`);
-    $(`#card${i}`).append(`<div id=hour${i} class=\'col-2 col-md-1 hour text-center py-3\'>`);
-    $(`#hour${i}`).text(primetime + prime);
-    $(`#card${i}`).append(`<textarea class=\'col-8 col-md-10 description\' rows=3 id=textarea${i}>`);
-    $(`#card${i}`).append(`<button class=\'btn saveBtn col-2 col-md-1\' id=Btn${i} aria-label=save>`);
-    $(`#Btn${i}`).append(`'<i class='fas fa-save' aria-hidden='true'>'`);
+  block.append(`
+  <div id=card${i} class="row time-block future">
+    <div id=hour${i} class='col-2 col-md-1 hour text-center py-3'>
+      <span class="idtag" id=tMinus${i}>${primetime}<span>${prime}
+    </div>
+    <textarea class='col-8 col-md-10 description' rows=3 id=textarea${i}>
+    </textarea>
+    <button class='btn saveBtn col-2 col-md-1' id=Btn${i} aria-label=save>
+      <i class='fas fa-save' aria-hidden='true'>
+    </button>
+  </div>
+  `)
   }
 
-  // $(`#Btn${i}`).on("click", saveText);
+  $(`#Btn0,#Btn1,#Btn1,#Btn2,#Btn3,#Btn4,#Btn5,#Btn6,#Btn7,#Btn8`).on("click",saveText)
+  function saveText(event){
+      event.preventDefault();
+      var dump = $(this).siblings(`textarea`).val()
+      var saveID = $(this).siblings(`.hour`).text()
+      localStorage.setItem(saveID, dump)
+    }
 
-  // function saveText(event){
-  //   event.preventDefault();
-  //   time[i].description = $(`#textarea${i}`).val();
-  //   localStorage.setItem(`Item${i}`,time[i].description)
-  // }
+  //render saves
+  for (var i = 0; i < time.length; i++){
+    var saveID = $(`#hour${i}`).text()
+    $(`#textarea${i}`).text(localStorage.getItem(saveID))
+  }
 
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
