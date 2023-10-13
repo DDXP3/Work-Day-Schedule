@@ -11,6 +11,17 @@ The Scheduler is a mock up Schedule planner.
 
 ## Usage
 
+When the page is loaded up:
+ - it has the correct date.
+ - it has block with according time, text area, and save buttons.
+
+ ![alt text](../Assets/Screenshot%202023-10-12%20234905.png)
+
+ when I click the save button:
+  - it is saved to localstorage and will stay there until I change it.
+
+ ![alt text](../Assets/Screenshot%202023-10-12%20235054.png)
+
 ## credits
 
 Arthur Henningfield - https://github.com/kylatae
